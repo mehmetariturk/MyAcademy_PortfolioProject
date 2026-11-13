@@ -1,0 +1,30 @@
+﻿@model List<MyAcademy_PortfolioProject.Entities.Message>
+@{
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Sender</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Open Message</th>
+        </tr>
+
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.MessageId</td>
+                <td>@item.NameSurname</td>
+                <td>@item.Email</td>
+                <td>@item.Subject</td>
+                <td>@item.SendDate.ToString("dd MMM yyyy")</td>
+                <td><a href="/Admin/Message/MessageDetail/@item.MessageId" class="btn btn-primary">Open Message</a></td>
+            </tr>
+        }
+    </table>
+</div>
