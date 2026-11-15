@@ -15,6 +15,9 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.MessageCount = _context.Messages.Count();
+            ViewBag.ReadMessageCount = _context.Messages.Where(x => x.IsRead == true).Count();
+            ViewBag.UnreadMessageCount = _context.Messages.Where(x => x.IsRead == false).Count();
             return View();
         }
     }
