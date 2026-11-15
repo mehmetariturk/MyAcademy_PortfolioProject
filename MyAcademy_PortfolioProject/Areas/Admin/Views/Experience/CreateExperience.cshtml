@@ -1,0 +1,38 @@
+﻿@model MyAcademy_PortfolioProject.Entities.Experience
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<form method="post">
+<div class="container">
+    <br />
+
+    <label>Title</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <br />
+
+    <label>Company Name</label>
+    <input type="text" asp-for="CompanyName" class="form-control" />
+    <br />
+
+    <label>Description</label>
+    <input type="text" asp-for="Description" class="form-control" />
+    <br />
+
+    <label>Subtitle</label>
+    <input type="text" asp-for="SideTitle" class="form-control" />
+    <br />
+
+    <label>Duration</label>
+    <input type="text" asp-for="Duration" class="form-control" />
+    <br />
+
+    <label>Work Type</label>
+    <input type="text" asp-for="WorkType" class="form-control" />
+    <br />
+
+    <button class="btn btn-info">Save Experience</button>
+</div>
+</form>

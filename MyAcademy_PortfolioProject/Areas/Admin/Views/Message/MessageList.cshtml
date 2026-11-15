@@ -13,6 +13,7 @@
             <th>Subject</th>
             <th>Date</th>
             <th>Open Message</th>
+            <th>Delete Message</th>
         </tr>
 
         @foreach(var item in Model)
@@ -24,6 +25,7 @@
                 <td>@item.Subject</td>
                 <td>@item.SendDate.ToString("dd MMM yyyy")</td>
                 <td><a href="/Admin/Message/MessageDetail/@item.MessageId" class="btn btn-primary">Open Message</a></td>
+                <td><a href="/Admin/Message/DeleteMessage/@item.MessageId" class="btn btn-danger">Delete Message</a></td>
             </tr>
         }
     </table>
