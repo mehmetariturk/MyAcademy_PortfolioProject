@@ -23,7 +23,7 @@
                 <td>@item.ExperienceId</td>
                 <td>@item.Title</td>
                 <td>@item.SideTitle</td>
-                <td>@item.Duration</td>
+                <td>@item.StartDate.ToString("MM.yyyy") – @(item.EndDate?.ToString("MM.yyyy") ?? "Günümüz")</td>
                 <td>@item.IsActive</td>
                 <td><a href="/Admin/Experience/DeleteExperience/@item.ExperienceId" class="btn btn-danger">Delete</a></td>
                 <td><a href="/Admin/Experience/UpdateExperience/@item.ExperienceId" class="btn btn-success">Update</a></td>

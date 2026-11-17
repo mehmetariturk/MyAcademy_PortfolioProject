@@ -22,6 +22,21 @@ namespace MyAcademy_PortfolioProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ExperienceTechnicalSkill", b =>
+                {
+                    b.Property<int>("ExperiencesExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TechnicalSkillsTechnicalSkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExperiencesExperienceId", "TechnicalSkillsTechnicalSkillId");
+
+                    b.HasIndex("TechnicalSkillsTechnicalSkillId");
+
+                    b.ToTable("ExperienceTechnicalSkill");
+                });
+
             modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.About", b =>
                 {
                     b.Property<int>("AboutId")
@@ -158,7 +173,10 @@ namespace MyAcademy_PortfolioProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Duration")
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IconUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -168,6 +186,9 @@ namespace MyAcademy_PortfolioProject.Migrations
                     b.Property<string>("SideTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -341,6 +362,21 @@ namespace MyAcademy_PortfolioProject.Migrations
                     b.HasIndex("TechnicalSkillsTechnicalSkillId");
 
                     b.ToTable("SkillTechnicalSkill");
+                });
+
+            modelBuilder.Entity("ExperienceTechnicalSkill", b =>
+                {
+                    b.HasOne("MyAcademy_PortfolioProject.Entities.Experience", null)
+                        .WithMany()
+                        .HasForeignKey("ExperiencesExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyAcademy_PortfolioProject.Entities.TechnicalSkill", null)
+                        .WithMany()
+                        .HasForeignKey("TechnicalSkillsTechnicalSkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Project", b =>

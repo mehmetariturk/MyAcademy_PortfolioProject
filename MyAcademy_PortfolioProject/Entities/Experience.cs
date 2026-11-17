@@ -7,8 +7,11 @@
         public string CompanyName { get; set; }
         public string Description { get; set; }
         public string SideTitle { get; set; }
-        public string Duration { get; set; }
         public string WorkType { get; set; }
         public bool IsActive{ get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string IconUrl { get; set; }
+        public List<TechnicalSkill> TechnicalSkills { get; set; }
     }
 }
