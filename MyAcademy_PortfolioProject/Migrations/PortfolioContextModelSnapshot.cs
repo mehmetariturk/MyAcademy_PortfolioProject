@@ -280,6 +280,69 @@ namespace MyAcademy_PortfolioProject.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Skill", b =>
+                {
+                    b.Property<int>("SkillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SkillDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SkillTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SkillId");
+
+                    b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.TechnicalSkill", b =>
+                {
+                    b.Property<int>("TechnicalSkillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TechnicalSkillId"));
+
+                    b.Property<int>("Percentage")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TechnicalSkillName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TechnicalSkillId");
+
+                    b.ToTable("TechnicalSkills");
+                });
+
+            modelBuilder.Entity("SkillTechnicalSkill", b =>
+                {
+                    b.Property<int>("SkillsSkillId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TechnicalSkillsTechnicalSkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SkillsSkillId", "TechnicalSkillsTechnicalSkillId");
+
+                    b.HasIndex("TechnicalSkillsTechnicalSkillId");
+
+                    b.ToTable("SkillTechnicalSkill");
+                });
+
             modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Project", b =>
                 {
                     b.HasOne("MyAcademy_PortfolioProject.Entities.Category", "Category")
@@ -289,6 +352,21 @@ namespace MyAcademy_PortfolioProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("SkillTechnicalSkill", b =>
+                {
+                    b.HasOne("MyAcademy_PortfolioProject.Entities.Skill", null)
+                        .WithMany()
+                        .HasForeignKey("SkillsSkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyAcademy_PortfolioProject.Entities.TechnicalSkill", null)
+                        .WithMany()
+                        .HasForeignKey("TechnicalSkillsTechnicalSkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Category", b =>
