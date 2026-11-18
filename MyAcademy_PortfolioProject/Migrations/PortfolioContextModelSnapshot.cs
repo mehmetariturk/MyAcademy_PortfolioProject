@@ -388,6 +388,34 @@ namespace MyAcademy_PortfolioProject.Migrations
                     b.ToTable("TechnicalSkills");
                 });
 
+            modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Workflow", b =>
+                {
+                    b.Property<int>("WorkflowId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkflowId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StepOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WorkflowId");
+
+                    b.ToTable("Workflows");
+                });
+
             modelBuilder.Entity("SkillTechnicalSkill", b =>
                 {
                     b.Property<int>("SkillsSkillId")
