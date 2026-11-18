@@ -69,13 +69,37 @@ namespace MyAcademy_PortfolioProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OpenToWork")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("OpenToWork")
+                        .HasColumnType("bit");
 
                     b.HasKey("AboutId");
 
                     b.ToTable("Abouts");
+                });
+
+            modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.AboutHighlight", b =>
+                {
+                    b.Property<int>("AboutHighlightId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutHighlightId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AboutHighlightId");
+
+                    b.ToTable("AboutHighlights");
                 });
 
             modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Category", b =>

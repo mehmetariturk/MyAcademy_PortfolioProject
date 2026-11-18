@@ -19,5 +19,6 @@ namespace MyAcademy_PortfolioProject.Context
         public DbSet<Project> Projects { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<TechnicalSkill> TechnicalSkills { get; set; }
+        public DbSet<AboutHighlight> AboutHighlights { get; set; }
     }
 }
