@@ -119,6 +119,37 @@ namespace MyAcademy_PortfolioProject.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Certification", b =>
+                {
+                    b.Property<int>("CertificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CertificationId"));
+
+                    b.Property<string>("CertificateUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CertificationId");
+
+                    b.ToTable("Certifications");
+                });
+
             modelBuilder.Entity("MyAcademy_PortfolioProject.Entities.Contact", b =>
                 {
                     b.Property<int>("ContactId")
