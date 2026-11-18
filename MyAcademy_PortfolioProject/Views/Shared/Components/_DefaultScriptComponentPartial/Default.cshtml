@@ -136,28 +136,7 @@
             revealElements.forEach(el => el.classList.add('revealed'));
         }
 
-        // 5. CONTACT FORM VALIDATION & DEMO SUBMISSION (HTML5 + Vanilla JS)
-        const contactForm = document.getElementById('contactForm');
-        const formSuccessMessage = document.getElementById('formSuccessMessage');
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                if (!contactForm.checkValidity()) {
-                    contactForm.classList.add('was-validated');
-                } else {
-                    contactForm.classList.remove('was-validated');
-                    formSuccessMessage.classList.remove('d-none');
-                    contactForm.reset();
-
-                    setTimeout(() => {
-                        formSuccessMessage.classList.add('d-none');
-                    }, 6000);
-                }
-            });
-        }
+        
 
     });
 </script>
