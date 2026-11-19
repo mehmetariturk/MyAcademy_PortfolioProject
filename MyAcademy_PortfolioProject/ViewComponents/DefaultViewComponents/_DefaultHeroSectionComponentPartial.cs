@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyAcademy_PortfolioProject.Context;
+using MyAcademy_PortfolioProject.Models.ViewModels;
 
 namespace MyAcademy_PortfolioProject.ViewComponents.DefaultViewComponents
 {
@@ -14,12 +15,12 @@ namespace MyAcademy_PortfolioProject.ViewComponents.DefaultViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var values = _context.HeroSections.FirstOrDefault();
-            ViewBag.Title = values.Title;
-            ViewBag.SubTitle = values.SubTitle;
-            ViewBag.Description = values.Description;
-            ViewBag.ImageUrl = values.ImageUrl;
-            return View();
+            var model = new HeroViewModel
+            {
+                Hero = _context.HeroSections.FirstOrDefault(),
+                Contact = _context.Contacts.FirstOrDefault()
+            };
+            return View(model);
         }
     }
 }
