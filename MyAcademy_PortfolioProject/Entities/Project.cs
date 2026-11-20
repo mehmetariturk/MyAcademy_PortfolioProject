@@ -9,5 +9,6 @@
         public string CoverImageUrl { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public List<TechnicalSkill> TechnicalSkills { get; set; }
     }
 }

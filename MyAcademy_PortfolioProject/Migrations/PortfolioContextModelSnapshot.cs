@@ -450,6 +450,21 @@ namespace MyAcademy_PortfolioProject.Migrations
                     b.ToTable("Workflows");
                 });
 
+            modelBuilder.Entity("ProjectTechnicalSkill", b =>
+                {
+                    b.Property<int>("ProjectsProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TechnicalSkillsTechnicalSkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProjectsProjectId", "TechnicalSkillsTechnicalSkillId");
+
+                    b.HasIndex("TechnicalSkillsTechnicalSkillId");
+
+                    b.ToTable("ProjectTechnicalSkill");
+                });
+
             modelBuilder.Entity("SkillTechnicalSkill", b =>
                 {
                     b.Property<int>("SkillsSkillId")
@@ -489,6 +504,21 @@ namespace MyAcademy_PortfolioProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ProjectTechnicalSkill", b =>
+                {
+                    b.HasOne("MyAcademy_PortfolioProject.Entities.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyAcademy_PortfolioProject.Entities.TechnicalSkill", null)
+                        .WithMany()
+                        .HasForeignKey("TechnicalSkillsTechnicalSkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SkillTechnicalSkill", b =>
