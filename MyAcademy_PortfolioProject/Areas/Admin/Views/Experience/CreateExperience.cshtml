@@ -1,39 +1,127 @@
 ﻿@model MyAcademy_PortfolioProject.Entities.Experience
 @{
-    Layout = null;
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    var workTypes = new List<string> { "Full-time", "Part-time", "Internship" };
+    if (!string.IsNullOrWhiteSpace(Model?.WorkType) && !workTypes.Contains(Model.WorkType))
+    {
+        workTypes.Insert(0, Model.WorkType);
+    }
 }
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<div class="form-card">
+    <form asp-area="Admin" asp-action="CreateExperience" method="post">
+        
+        <div class="form-card-header">
+            <div class="form-card-icon"><i class="bi bi-briefcase"></i></div>
+            <div>
+                <h5 class="mb-0 fw-bold">Create Experience</h5>
+                <small class="text-secondary">Create the experience details and save your changes.</small>
+            </div>
+        </div>
 
-<form method="post">
-<div class="container">
-    <br />
+        <div class="form-card-body">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
 
-    <label>Title</label>
-    <input type="text" asp-for="Title" class="form-control" />
-    <br />
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="Title" class="form-label">Position <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-person-badge"></i>
+                        <input asp-for="Title" class="form-control" placeholder="e.g. Senior Software Engineer" required />
+                    </div>
+                    <span asp-validation-for="Title"></span>
+                </div>
 
-    <label>Company Name</label>
-    <input type="text" asp-for="CompanyName" class="form-control" />
-    <br />
+                <div class="col-md-6">
+                    <label asp-for="CompanyName" class="form-label">Company <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-building"></i>
+                        <input asp-for="CompanyName" class="form-control" placeholder="e.g. NovaTech Solutions" required />
+                    </div>
+                    <span asp-validation-for="CompanyName"></span>
+                </div>
 
-    <label>Description</label>
-    <input type="text" asp-for="Description" class="form-control" />
-    <br />
+                <div class="col-md-6">
+                    <label asp-for="SideTitle" class="form-label">Side Title</label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-geo-alt"></i>
+                        <input asp-for="SideTitle" class="form-control" placeholder="e.g. Enterprise Web Solutions" />
+                    </div>
+                    <span asp-validation-for="SideTitle"></span>
+                </div>
 
-    <label>Subtitle</label>
-    <input type="text" asp-for="SideTitle" class="form-control" />
-    <br />
+                <div class="col-md-6">
+                    <label asp-for="WorkType" class="form-label">Work Type <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-clock-history"></i>
+                        <select asp-for="WorkType" class="form-select" required>
+                            <option value="">Select...</option>
+                            @foreach (var type in workTypes)
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                    </div>
+                    <span asp-validation-for="WorkType"></span>
+                </div>
 
-    <input type="date" asp-for="StartDate" class="form-control" />
-    <input type="date" asp-for="EndDate" class="form-control" />
+                <div class="col-md-6">
+                    <label asp-for="StartDate" class="form-label">Start Date <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-calendar3"></i>
+                        <input asp-for="StartDate" type="date" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="StartDate"></span>
+                </div>
 
-     <input asp-for="IconUrl" class="form-control" placeholder="Örn: bi bi-building" />
+                <div class="col-md-6">
+                    <label asp-for="EndDate" class="form-label">End Date</label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-calendar-check"></i>
+                        <input asp-for="EndDate" type="date" class="form-control" />
+                    </div>
+                    <small class="text-secondary">Leave empty if you still work here.</small>
+                </div>
 
-    <label>Work Type</label>
-    <input type="text" asp-for="WorkType" class="form-control" />
-    <br />
+                <div class="col-md-6">
+                    <label asp-for="IconUrl" class="form-label">Timeline Icon</label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-stars"></i>
+                        <input asp-for="IconUrl" class="form-control" placeholder="e.g. bi bi-building" />
+                    </div>
+                    <small class="text-secondary">Bootstrap Icons class name.</small>
+                </div>
 
-    <button class="btn btn-info">Save Experience</button>
+                <div class="col-md-6">
+                    <label class="form-label">Visibility</label>
+                    <div class="status-box">
+                        <div>
+                            <div class="fw-semibold" style="font-size: 0.86rem;">Active</div>
+                            <small class="text-secondary">Show this experience on the portfolio.</small>
+                        </div>
+                        <div class="form-check form-switch m-0">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" role="switch" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label">Description <span class="req">*</span></label>
+                    <textarea asp-for="Description" class="form-control" rows="5"
+                              placeholder="One responsibility per line..." required></textarea>
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card-footer">
+            <a asp-area="Admin" asp-action="ExperienceList" class="btn btn-soft">
+                <i class="bi bi-arrow-left me-1"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-accent">
+                <i class="bi bi-check2-circle me-1"></i> Add Experience
+            </button>
+        </div>
+    </form>
 </div>
-</form>

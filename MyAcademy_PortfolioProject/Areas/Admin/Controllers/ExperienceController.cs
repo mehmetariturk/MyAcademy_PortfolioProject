@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyAcademy_PortfolioProject.Context;
 using MyAcademy_PortfolioProject.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
 {
@@ -14,9 +15,14 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return RedirectToAction("ExperienceList");
+        }
+        
         public IActionResult ExperienceList()
         {
-            var values = _context.Experiences.ToList();
+            var values = _context.Experiences.OrderByDescending(x => x.StartDate).ToList();
             return View(values);
         }
 
@@ -29,8 +35,13 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult CreateExperience(Experience experience)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(experience);
+            }
             _context.Experiences.Add(experience);
             _context.SaveChanges();
+            TempData["Success"] = "Experience added successfully";
             return RedirectToAction("ExperienceList");
         }
 
@@ -39,6 +50,7 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
             var value = _context.Experiences.Find(id);
             _context.Experiences.Remove(value);
             _context.SaveChanges();
+            TempData["Success"] = "Experience deleted successfully";
             return RedirectToAction("ExperienceList");
         }
 
@@ -54,6 +66,7 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
         {
             _context.Experiences.Update(experience);
             _context.SaveChanges();
+            TempData["Success"] = "Experience updated successfully";
             return RedirectToAction("ExperienceList");
         }
     }
