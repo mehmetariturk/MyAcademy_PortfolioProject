@@ -1,4 +1,5 @@
-﻿<!-- Ambient Blobs -->
+﻿@model About
+<!-- Ambient Blobs -->
 <div class="blob-bg blob-1"></div>
 <div class="blob-bg blob-2"></div>
 <div class="blob-bg blob-3"></div>
@@ -41,11 +42,14 @@
             </ul>
 
             <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
-                <a href="#contact" class="btn-custom-primary" id="btnDownloadCv">
-                    <i class="bi bi-file-earmark-arrow-down"></i>
-                    Download CV
-                </a>
-            </div>
+                @if (!string.IsNullOrEmpty(Model?.CvUrl))
+                {
+                    <a href="@Model.CvUrl" download = "Mehmet-Ariturk-Sample-CV.pdf" class="btn-custom-primary" id="btnDownloadCv">
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                        Download CV
+                    </a>
+                }
         </div>
     </div>
+</div>
 </nav>

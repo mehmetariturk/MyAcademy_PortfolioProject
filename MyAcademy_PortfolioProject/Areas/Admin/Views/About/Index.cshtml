@@ -1,0 +1,118 @@
+﻿@model MyAcademy_PortfolioProject.Entities.About
+@{
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="form-card">
+    <form asp-area="Admin" asp-action="Index" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="AboutId" />
+        <input type="hidden" asp-for="CvUrl" />
+
+        <div class="form-card-header">
+            <div class="form-card-icon"><i class="bi bi-person"></i></div>
+            <div>
+                <h5 class="mb-0 fw-bold">About Me</h5>
+                <small class="text-secondary">Edit the personal information shown on your portfolio.</small>
+            </div>
+        </div>
+
+        <div class="form-card-body">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="NameSurname" class="form-label">Full Name <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-person"></i>
+                        <input asp-for="NameSurname" class="form-control" placeholder="e.g. Mehmet Can Arıtürk" required />
+                    </div>
+                    <span asp-validation-for="NameSurname"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Jobtitle" class="form-label">Role <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-briefcase"></i>
+                        <input asp-for="Jobtitle" class="form-control" placeholder="e.g. Full-Stack .NET Developer" required />
+                    </div>
+                    <span asp-validation-for="Jobtitle"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label">Email <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-envelope"></i>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="e.g. mehmet@example.com" required />
+                    </div>
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Location" class="form-label">Location</label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-geo-alt"></i>
+                        <input asp-for="Location" class="form-control" placeholder="e.g. Istanbul, Türkiye" />
+                    </div>
+                    <span asp-validation-for="Location"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Expert" class="form-label">Expertise</label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-layers"></i>
+                        <input asp-for="Expert" class="form-control" placeholder="e.g. Full-Stack Web Development" />
+                    </div>
+                    <span asp-validation-for="Expert"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Availability</label>
+                    <div class="status-box">
+                        <div>
+                            <div class="fw-semibold" style="font-size: 0.86rem;">Open to work</div>
+                            <small class="text-secondary">Show the "Open to new projects" badge.</small>
+                        </div>
+                        <div class="form-check form-switch m-0">
+                            <input asp-for="OpenToWork" class="form-check-input" type="checkbox" role="switch" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label">Biography</label>
+                    <textarea asp-for="Description" class="form-control" rows="6"
+                              placeholder="One paragraph per line..."></textarea>
+                    <small class="text-secondary">Each line is shown as a separate paragraph.</small>
+                </div>
+
+                
+                <!-- CV -->
+                <div class="col-12">
+                    <label class="form-label">CV</label>
+                    <div class="status-box">
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold" style="font-size: 0.86rem;">
+                                @(string.IsNullOrEmpty(Model.CvUrl) ? "No CV uploaded yet" : "Current CV")
+                            </div>
+                            <small class="text-secondary">PDF only.</small>
+                            <input type="file" name="CvFile" accept=".pdf" class="form-control form-control-sm mt-2" />
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.CvUrl))
+                        {
+                            <a href="@Model.CvUrl" target="_blank" class="btn btn-soft btn-sm">
+                                <i class="bi bi-file-earmark-pdf me-1"></i> View
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card-footer">
+            <button type="submit" class="btn btn-accent">
+                <i class="bi bi-check2-circle me-1"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
