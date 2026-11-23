@@ -44,5 +44,39 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
             TempData["Success"] = "Education added successfully";
             return RedirectToAction("EducationList");
         }
+
+        public IActionResult DeleteEducation(int id)
+        {
+            var value = _context.Educations.Find(id);
+            if (value == null)
+            {
+                return RedirectToAction("EducationList");
+            }
+            _context.Educations.Remove(value);
+            _context.SaveChanges();
+            TempData["Success"] = "Education deleted successfully";
+            return RedirectToAction("EducationList");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateEducation(int id)
+        {
+            var value = _context.Educations.Find(id);
+            return View(value);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEducation(Education education)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(education);
+            }
+
+            _context.Educations.Update(education);
+            _context.SaveChanges();
+            TempData["Success"] = "Education updated successfully";
+            return RedirectToAction("EducationList");
+        }
     }
 }
