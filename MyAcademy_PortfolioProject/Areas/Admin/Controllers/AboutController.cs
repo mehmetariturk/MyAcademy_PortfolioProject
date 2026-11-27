@@ -18,11 +18,12 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var value = _context.Abouts.FirstOrDefault() ?? new Entities.About();
+            ViewBag.Highlights = _context.AboutHighlights.ToList();
             return View(value);
         }
 
         [HttpPost]
-        public IActionResult Index(About about, IFormFile? CvFile)
+        public IActionResult Index(About about, IFormFile? CvFile, List<AboutHighlight> Highlights)
         {
             if (CvFile != null)
             {
@@ -44,11 +45,24 @@ namespace MyAcademy_PortfolioProject.Areas.Admin.Controllers
                 }
             }
 
-            if (!ModelState.IsValid) return View(about);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Highlights = Highlights;
+                return View(about);
+            }
 
             if (about.AboutId == 0) _context.Abouts.Add(about);
             else _context.Abouts.Update(about);
 
+            foreach (var item in Highlights)
+            {
+                var entity = _context.AboutHighlights.Find(item.AboutHighlightId);
+                if (entity != null)
+                {
+                    entity.Title = item.Title;
+                    entity.Description = item.Description;
+                }
+            }
             _context.SaveChanges();
             TempData["Success"] = "About saved successfully";
             return RedirectToAction("Index");

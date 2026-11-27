@@ -1,6 +1,8 @@
 ﻿@model MyAcademy_PortfolioProject.Entities.About
 @{
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    var highlights = ViewBag.Highlights as List<MyAcademy_PortfolioProject.Entities.AboutHighlight>;
+    var icons = new[] { "bi bi-cpu", "bi bi-puzzle", "bi bi-arrow-repeat" };
 }
 
 <div class="form-card">
@@ -25,7 +27,7 @@
                     <label asp-for="NameSurname" class="form-label">Full Name <span class="req">*</span></label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-person"></i>
-                        <input asp-for="NameSurname" class="form-control" placeholder="e.g. Mehmet Can Arıtürk" required />
+                        <input asp-for="NameSurname" class="form-control" required />
                     </div>
                     <span asp-validation-for="NameSurname"></span>
                 </div>
@@ -34,7 +36,7 @@
                     <label asp-for="Jobtitle" class="form-label">Role <span class="req">*</span></label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-briefcase"></i>
-                        <input asp-for="Jobtitle" class="form-control" placeholder="e.g. Full-Stack .NET Developer" required />
+                        <input asp-for="Jobtitle" class="form-control" required />
                     </div>
                     <span asp-validation-for="Jobtitle"></span>
                 </div>
@@ -43,7 +45,7 @@
                     <label asp-for="Email" class="form-label">Email <span class="req">*</span></label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-envelope"></i>
-                        <input asp-for="Email" type="email" class="form-control" placeholder="e.g. mehmet@example.com" required />
+                        <input asp-for="Email" type="email" class="form-control" required />
                     </div>
                     <span asp-validation-for="Email"></span>
                 </div>
@@ -52,18 +54,16 @@
                     <label asp-for="Location" class="form-label">Location</label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-geo-alt"></i>
-                        <input asp-for="Location" class="form-control" placeholder="e.g. Istanbul, Türkiye" />
+                        <input asp-for="Location" class="form-control" />
                     </div>
-                    <span asp-validation-for="Location"></span>
                 </div>
 
                 <div class="col-md-6">
                     <label asp-for="Expert" class="form-label">Expertise</label>
                     <div class="input-icon-wrap">
                         <i class="bi bi-layers"></i>
-                        <input asp-for="Expert" class="form-control" placeholder="e.g. Full-Stack Web Development" />
+                        <input asp-for="Expert" class="form-control" />
                     </div>
-                    <span asp-validation-for="Expert"></span>
                 </div>
 
                 <div class="col-md-6">
@@ -81,13 +81,33 @@
 
                 <div class="col-12">
                     <label asp-for="Description" class="form-label">Biography</label>
-                    <textarea asp-for="Description" class="form-control" rows="6"
-                              placeholder="One paragraph per line..."></textarea>
+                    <textarea asp-for="Description" class="form-control" rows="6"></textarea>
                     <small class="text-secondary">Each line is shown as a separate paragraph.</small>
                 </div>
 
-                
-                <!-- CV -->
+                @if (highlights != null && highlights.Any())
+                {
+                    <div class="col-12">
+                        <label class="form-label">Highlight Cards</label>
+                        <div class="row g-3">
+                            @for (int i = 0; i < highlights.Count; i++)
+                            {
+                                <div class="col-md-4">
+                                    <div class="status-box d-block">
+                                        <div class="form-card-icon mb-2" style="width:36px;height:36px;font-size:1rem;">
+                                            <i class="@icons[i % icons.Length]"></i>
+                                        </div>
+                                        <input type="hidden" name="Highlights[@i].AboutHighlightId" value="@highlights[i].AboutHighlightId" />
+                                        <input type="hidden" name="Highlights[@i].IconUrl" value="@highlights[i].IconUrl" />
+                                        <input name="Highlights[@i].Title" value="@highlights[i].Title" class="form-control mb-2" placeholder="Title" required />
+                                        <textarea name="Highlights[@i].Description" class="form-control" rows="3" placeholder="Description" required>@highlights[i].Description</textarea>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
                 <div class="col-12">
                     <label class="form-label">CV</label>
                     <div class="status-box">
