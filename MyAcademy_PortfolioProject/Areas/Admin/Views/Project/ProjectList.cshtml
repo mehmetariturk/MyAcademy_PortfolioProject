@@ -1,0 +1,65 @@
+﻿@model List<MyAcademy_PortfolioProject.Entities.Project>
+
+@{
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="/Admin/Project/CreateProject" class="btn-pastel-primary text-decoration-none">
+        <i class="bi bi-plus-lg"></i> New Project
+    </a>
+</div>
+
+
+<div class="content-card overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-custom">
+            <thead>
+                <tr>
+                    <th style="width:45%">Project</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="@item.CoverImageUrl" alt="@item.Title"
+                                     style="width:56px;height:40px;object-fit:cover;border-radius:8px;" />
+                                <div>
+                                    <div class="fw-semibold">@item.Title</div>
+                                    <a href="@item.GithubUrl" target="_blank" class="small text-secondary text-decoration-none">
+                                        <i class="bi bi-github"></i> GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge-pastel badge-pastel-purple">@item.Category?.CategoryName</span></td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="badge-pastel badge-pastel-active">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge-pastel badge-pastel-completed">Passive</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <a href="/Admin/Project/UpdateProject/@item.ProjectId" class="btn-icon-action" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="/Admin/Project/DeleteProject/@item.ProjectId" class="btn-icon-action action-delete btn-delete" title="Delete">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -362,7 +362,6 @@ namespace MyAcademy_PortfolioProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CoverImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -370,12 +369,16 @@ namespace MyAcademy_PortfolioProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GithubUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ProjectId");
 

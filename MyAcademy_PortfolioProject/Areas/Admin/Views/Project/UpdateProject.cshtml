@@ -1,0 +1,94 @@
+﻿@model MyAcademy_PortfolioProject.Entities.Project
+@{
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="form-card">
+    <form asp-area="Admin" asp-action="UpdateProject" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="ProjectId" />
+
+        <div class="form-card-header">
+            <div class="form-card-icon"><i class="bi bi-grid"></i></div>
+            <div>
+                <h5 class="mb-0 fw-bold">Update Project</h5>
+                <small class="text-secondary">Edit the project details and save your changes.</small>
+            </div>
+        </div>
+
+        <div class="form-card-body">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="Title" class="form-label">Title <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-card-heading"></i>
+                        <input asp-for="Title" class="form-control" placeholder="e.g. Hotel Booking" required />
+                    </div>
+                    <span asp-validation-for="Title"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="CategoryId" class="form-label">Category <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-folder"></i>
+                        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select" required>
+                            <option value="">Select a category...</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="CategoryId"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="GithubUrl" class="form-label">GitHub URL</label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-github"></i>
+                        <input asp-for="GithubUrl" class="form-control" placeholder="e.g. https://github.com/username/repo" />
+                    </div>
+                    <span asp-validation-for="GithubUrl"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Cover Image</label>
+                    <input type="hidden" asp-for="CoverImageUrl" />
+                    <input type="file" name="CoverImage" accept="image/*" class="form-control" />
+                    @if (!string.IsNullOrEmpty(Model.CoverImageUrl))
+                    {
+                        <img src="@Model.CoverImageUrl" class="mt-2" style="width:120px;border-radius:8px;" />
+                    }
+                    <small class="text-secondary d-block">Leave empty to keep the current image.</small>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Visibility</label>
+                    <div class="status-box">
+                        <div>
+                            <div class="fw-semibold" style="font-size: 0.86rem;">Active</div>
+                            <small class="text-secondary">Show this project on the portfolio.</small>
+                        </div>
+                        <div class="form-check form-switch m-0">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" role="switch" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label">Description <span class="req">*</span></label>
+                    <textarea asp-for="Description" class="form-control" rows="4"
+                              placeholder="Short summary of the project..." required></textarea>
+                    <span asp-validation-for="Description"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card-footer">
+            <a asp-area="Admin" asp-action="ProjectList" class="btn btn-soft">
+                <i class="bi bi-arrow-left me-1"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-accent">
+                <i class="bi bi-check2-circle me-1"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>

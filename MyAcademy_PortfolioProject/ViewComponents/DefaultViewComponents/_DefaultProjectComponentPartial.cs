@@ -16,9 +16,10 @@ namespace MyAcademy_PortfolioProject.ViewComponents.DefaultViewComponents
         
         public IViewComponentResult Invoke()
         {
+
             var model = new ProjectViewModel
             {
-                Projects = _context.Projects.Include(x => x.Category).Include(x => x.TechnicalSkills).ToList(),
+                Projects = _context.Projects.Where(x => x.IsActive).Include(x => x.Category).Include(x => x.TechnicalSkills).ToList(),
                 Categories = _context.Categories.ToList()
             };
             return View(model);
