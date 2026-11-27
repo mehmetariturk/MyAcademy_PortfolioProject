@@ -1,0 +1,42 @@
+﻿@model MyAcademy_PortfolioProject.Entities.Category
+@{
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="form-card">
+    <form asp-area="Admin" asp-action="UpdateCategory" method="post">
+
+        <input type="hidden" asp-for="CategoryId" />
+        <div class="form-card-header">
+            <div class="form-card-icon"><i class="bi bi-folder"></i></div>
+            <div>
+                <h5 class="mb-0 fw-bold">Update Category</h5>
+                <small class="text-secondary">Edit the category name and save your changes.</small>
+            </div>
+        </div>
+
+        <div class="form-card-body">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="CategoryName" class="form-label">Category <span class="req">*</span></label>
+                    <div class="input-icon-wrap">
+                        <i class="bi bi-folder"></i>
+                        <input asp-for="CategoryName" class="form-control" placeholder="e.g. Web Application" required />
+                    </div>
+                    <span asp-validation-for="CategoryName"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card-footer">
+            <a asp-area="Admin" asp-action="CategoryList" class="btn btn-soft">
+                <i class="bi bi-arrow-left me-1"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-accent">
+                <i class="bi bi-check2-circle me-1"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+﻿@model List<MyAcademy_PortfolioProject.Entities.Category>
+
+@{
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="/Admin/Category/CreateCategory" class="btn-pastel-primary text-decoration-none">
+        <i class="bi bi-plus-lg"></i> New Category
+    </a>
+</div>
+
+
+<div class="content-card overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-custom">
+            <thead>
+                <tr>
+                    <th style="width:40%">Category Name</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="company-avatar"><i class="bi bi-folder"></i></div>
+                                <div class="fw-semibold">@item.CategoryName</div>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <a href="/Admin/Category/UpdateCategory/@item.CategoryId" class="btn-icon-action" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="/Admin/Category/DeleteCategory/@item.CategoryId" class="btn-icon-action action-delete btn-delete" title="Delete">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
